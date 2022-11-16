@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <!--<TargetFrameworks>netstandard2.0;net5.0;net6.0;netcoreapp3.1</TargetFrameworks>-->
+	  <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <AssemblyVersion>1.0.29.0</AssemblyVersion>
+    <FileVersion>1.0.29.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="System.Text.Json" Version="6.0.6" />
+  </ItemGroup>
+</Project>
