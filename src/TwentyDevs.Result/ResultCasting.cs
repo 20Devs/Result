@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Resources;
-using System.Text;
 
+//////////////////////////////////////////////////////////////////////////////////////
+///                                                                                ///
+/// This file contains casting each StatusCodeResult to Result class.              ///
+/// With the help of this conversion,                                              /// 
+/// we guarantee that the web api returns the same type of result in any situation,///
+/// and it is also of the Result type.                                             ///
+///                                                                                ///
+//////////////////////////////////////////////////////////////////////////////////////
 namespace TwentyDevs.Result
 {
     public partial class Result
     {
+        
         public static implicit operator Result(OkResult result)
         {
             return Result.Success();
@@ -34,7 +39,7 @@ namespace TwentyDevs.Result
         }
         public static implicit operator Result(NoContentResult result)
         {
-            return Result.Success();
+            return Result.Success(Result.NoContentMessage);
         }
         public static implicit operator Result(NotFoundResult result)
         {
@@ -47,9 +52,9 @@ namespace TwentyDevs.Result
         public static implicit operator Result(UnauthorizedObjectResult result)
         {
             if (result.Value is SerializableError errors)
-                return Result.Fail(errors);
+                return Result.Fail(errors,Result.UnauthorizedMessage);
 
-            return Result.Fail(result.Value?.ToString() ?? BadRequestMessage);
+            return Result.Fail(result.Value?.ToString() ?? Result.UnauthorizedMessage);
         }
 
     }

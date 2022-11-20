@@ -1,24 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 
 namespace TwentyDevs.Result.Filter
 {
-    public class ValidationToResultFilterAttribute : ActionFilterAttribute
+    /// <summary>
+    /// Actions when decorated with this attribute not excuted if there is a ModelState has any error.
+    /// Result return back as BadRequest.
+    /// </summary>
+    public class ResultValidationAttribute : ActionFilterAttribute
     {
+        
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)
             {
-                var errors      = new SerializableError(context.ModelState);
 
-                var result      = Result.Fail(errors); 
+                var result      = Result.Fail(context.ModelState); 
                 var strJson     = JsonSerializer.Serialize(result);
 
-                context.Result  = new ContentResult()
+                context.Result  = new ResultResponse()
                 {
                     Content = strJson, 
                     ContentType = "application/json",

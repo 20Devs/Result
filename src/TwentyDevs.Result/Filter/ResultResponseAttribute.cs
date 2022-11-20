@@ -5,7 +5,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace TwentyDevs.Result.Filter
 {
-    public class ResultFilterAttribute : ActionFilterAttribute
+    /// <summary>
+    /// Indicate that the result of controllers will be transformed into the Result class.
+    /// <para>
+    /// Response of controllers is a Result object.
+    /// </para>
+    /// </summary>
+    public class ResultResponseAttribute : ActionFilterAttribute
     {
         private ActionExecutedContext _Context;
 
@@ -13,7 +19,7 @@ namespace TwentyDevs.Result.Filter
         {
             var strJson         = JsonSerializer.Serialize(result);
 
-            _Context.Result     = new ContentResult()
+            _Context.Result     =  new ContentResult()
             {
                 Content         = strJson,
                 ContentType     = "application/json",
@@ -25,6 +31,17 @@ namespace TwentyDevs.Result.Filter
             _Context = context;
             switch (context.Result)
             {
+
+                case ResultResponse resultResponse:
+                {
+                    _Context.Result = new ContentResult()
+                    {
+                        Content     = resultResponse.Content,
+                        ContentType = resultResponse.ContentType,
+                        StatusCode  = resultResponse.StatusCode
+                    };
+                        break;
+                }
                 case OkObjectResult okObjectResult:
                     {
                         var OkResult    = Result.Success<object>(okObjectResult.Value);
@@ -114,7 +131,6 @@ namespace TwentyDevs.Result.Filter
 
             base.OnActionExecuted(context);
         }
-
 
     }
 }

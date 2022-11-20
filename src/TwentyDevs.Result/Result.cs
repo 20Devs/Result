@@ -7,30 +7,49 @@ using System.Text.Json.Serialization;
 
 namespace TwentyDevs.Result
 {
+    /// <summary>
+    /// Defines a result to forming the response, output of methods,
+    /// and returns of the actions to equalization.
+    /// </summary>
     [JsonConverter(typeof(ResultConverter))]
     public partial class Result
     {
+        /// <summary>
+        /// Desfines a message to send with result.success message or faild message
+        /// </summary>
         public string    Message         { get; set; }
 
+        /// <summary>
+        /// Defines a URL, navigation, or path to redirect clients to favor destination
+        /// </summary>
         public string    Redirect        { get; set; }
 
+        /// <summary>
+        /// Determines the result of operation or response(Success/Faild).
+        /// </summary>
         public bool     IsSuccess       => !_errors.Any();
 
+        /// <summary>
+        /// A simple dictionary that return list of errors as string.
+        /// <para>
+        /// It is possible to group errors With Dictionary just like ModelState.
+        /// </para>
+        /// </summary>
         public Dictionary<string, List<string>> Errors => _errors;
 
         protected Dictionary<string, List<string>> _errors;
 
         protected Result()
         {
-            _errors = new Dictionary<string, List<string>>();
+            _errors = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
         }
 
-        protected Result(bool IsSuccess, string Message) : this()
+        protected Result(bool IsSuccess, string message) : this()
         {
             if (IsSuccess)
-                this.Message = Message;
-            else
-                AddError("", Message);
+                this.Message = message;
+            else if (!string.IsNullOrWhiteSpace(message))
+                AddError("", message);
         }
 
         protected Result(SerializableError ModelErrors) : this()
@@ -57,21 +76,31 @@ namespace TwentyDevs.Result
 
         }
 
-        public void AddError(string MemberName, string ErrorMessage)
+        /// <summary>
+        /// Adds a string as an error description to the list of errors.
+        /// </summary>
+        /// <param name="MetaData">To group some errors under a name</param>
+        /// <param name="ErrorMessage">A string that describes the error</param>
+        public void AddError(string MetaData, string ErrorMessage)
         {
+            if (string.IsNullOrWhiteSpace(ErrorMessage))
+                return;
 
-            if (_errors.ContainsKey(MemberName))
+            if (_errors.ContainsKey(MetaData))
             {
-                var values = _errors[MemberName];
+                var values = _errors[MetaData];
                 values.Add(ErrorMessage);
-                _errors[MemberName] = values;
+                _errors[MetaData] = values;
             }
             else
             {
-                _errors.Add(MemberName, new List<string>() { ErrorMessage });
+                _errors.Add(MetaData, new List<string>() { ErrorMessage });
             }
         }
-
+        /// <summary>
+        /// Adds a collection of errors to the existing error list.
+        /// </summary>
+        /// <param name="Errors">A dictionary of errors for adding</param>
         public void AddError(Dictionary<string, List<string>> Errors)
         {
             foreach (var Model in Errors)

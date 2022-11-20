@@ -7,6 +7,9 @@ using System.Text.Json;
  
 namespace TwentyDevs.Result
 {
+    /// <summary>
+    /// Convert to/from json string  with custome converter 
+    /// </summary>
     public class ResultConverter : JsonConverter<Result>
     {
         public override Result Read
@@ -23,9 +26,6 @@ namespace TwentyDevs.Result
             var name             = reader.GetString();
 
             var source = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(name);
-
-            //if (!source.ContainsKey(nameof(Result.IsSuccess)))
-            //    throw new Exception("json string ");
 
             var message =
                 source.ContainsKey(nameof(Result.Message))
@@ -83,15 +83,15 @@ namespace TwentyDevs.Result
             return result;
         }
 
+
+
         public override void Write(Utf8JsonWriter writer, Result value, JsonSerializerOptions options)
         {
             var props = value.GetType()
                 .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                 .ToDictionary(x => x.Name, x => x.GetValue(value));
 
-            var ser = JsonSerializer.Serialize(props);
-
-            writer.WriteStringValue(ser);
+            JsonSerializer.Serialize(writer,props,options);
         }
     }
 }
