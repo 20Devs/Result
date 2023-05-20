@@ -10,19 +10,16 @@ namespace WebApi.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ResultResponse]
-    //[TypeFilter(typeof(ApiExceptionFilter),Arguments = new object[]{ true, "Error from Home"})]
+    [ResultResponse] 
     [TypeFilter(typeof(ResultExceptionFilter), Arguments = new object[] { true,"for controller" })]
-    //[ApiExceptionFilter(true)]
-    
     public class HomeController : ControllerBase
     {
 
-
         [HttpGet]
-        //[ResultFilter]
         public async Task<object>  Get()
         {
+            throw new Exception("Sample error");
+
             var result = Result.Fail("خطا رخ داده بوده ");
             result.AddError("name","the first error.");
             result.AddError("name", "the first error2.");

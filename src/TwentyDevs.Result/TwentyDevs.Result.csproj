@@ -1,18 +1,57 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <!--<TargetFrameworks>netstandard2.0;net5.0;net6.0;netcoreapp3.1</TargetFrameworks>-->
-	  <TargetFrameworks>netstandard2.0</TargetFrameworks>
+	<TargetFrameworks>netstandard2.0;net5.0;net6.0;netcoreapp3.1</TargetFrameworks>
     <AssemblyVersion>1.0.56.0</AssemblyVersion>
     <FileVersion>1.0.56.0</FileVersion>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Result</Title>
+    <Version>$(AssemblyVersion)</Version>
+    <Authors>Soran Rad (SoranRad.com)</Authors>
+    <Company>SoranRad.com</Company>
+    <Description>Result is a library for web APIs that brings all responses in a unified and consistent form.</Description>
+    <Copyright>Copyright © SoranRad.com</Copyright>
+    <PackageProjectUrl>https://github.com/SoranRad/Result</PackageProjectUrl>
+    <PackageIcon>Logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/SoranRad/Result</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>webapi, result , .net, .net core,</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net5.0|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\.editorconfig" Link=".editorconfig" />
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="System.Text.Json" Version="6.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 </Project>
