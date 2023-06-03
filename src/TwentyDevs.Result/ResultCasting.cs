@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-//////////////////////////////////////////////////////////////////////////////////////
+﻿//////////////////////////////////////////////////////////////////////////////////////
 ///                                                                                ///
 /// This file contains casting each StatusCodeResult to Result class.              ///
 /// With the help of this conversion,                                              /// 
@@ -10,6 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////////////
 namespace TwentyDevs.Result
 {
+ 
+
+    using Microsoft.AspNetCore.Mvc;
     public partial class Result
     {
         
@@ -109,5 +110,5 @@ namespace TwentyDevs.Result
             return Result.Fail<T>(result.Value?.ToString() ?? BadRequestMessage);
         }
 
-    }
+    } 
 }

@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System.Text.Json;
-using Microsoft.AspNetCore.Http;
-
+﻿
 namespace TwentyDevs.Result.Filter
-{
+{ 
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using System.Text.Json;
+    using Microsoft.AspNetCore.Http;
+
     /// <summary>
     /// Actions when decorated with this attribute not excuted if there is a ModelState has any error.
     /// Result return back as BadRequest.
@@ -29,5 +30,5 @@ namespace TwentyDevs.Result.Filter
             }
         }
 
-    }
+    } 
 }

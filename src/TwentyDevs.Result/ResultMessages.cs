@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TwentyDevs.Result
+﻿namespace TwentyDevs.Result
 {
     public partial class Result
     {

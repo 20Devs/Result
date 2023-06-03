@@ -1,12 +1,14 @@
-﻿using System.Diagnostics;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
+﻿
 
 namespace TwentyDevs.Result.Filter
 {
+ 
+    using System.Diagnostics;
+    using System.Text.Json;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using Microsoft.Extensions.Logging;
     /// <summary>
     /// 
     /// </summary>
@@ -72,5 +74,5 @@ namespace TwentyDevs.Result.Filter
 
             await context.HttpContext.Response.WriteAsync(json).ConfigureAwait(false);
         }
-    }
+    } 
 }

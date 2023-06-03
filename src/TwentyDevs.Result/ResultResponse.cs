@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+﻿
+
 
 namespace TwentyDevs.Result
 {
+ 
+    using Microsoft.AspNetCore.Mvc; 
     public class ResultResponse : ContentResult
     {
     }
+ 
 }

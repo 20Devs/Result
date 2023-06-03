@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System.Text.Json;
-using Microsoft.AspNetCore.Http;
+﻿
 
 namespace TwentyDevs.Result.Filter
-{
+{ 
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using System.Text.Json;
+    using Microsoft.AspNetCore.Http;
     /// <summary>
     /// Indicate that the result of controllers will be transformed into the Result class.
     /// <para>
@@ -132,5 +133,5 @@ namespace TwentyDevs.Result.Filter
             base.OnActionExecuted(context);
         }
 
-    }
+    } 
 }

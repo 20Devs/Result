@@ -1,10 +1,6 @@
 ﻿
-
-namespace TwentyDevs.Result
+namespace TwentyDevs.ResultCore
 {
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc;
- 
     /// <summary>
     /// Defines a result to forming the response, output of methods,
     /// and returns of the actions to equalization.
@@ -36,15 +32,14 @@ using Microsoft.AspNetCore.Mvc;
         {
             this.Message = Message;
         }
- 
-        internal Result(SerializableError ModelErrors) : base(ModelErrors)
-        {
-        }
 
-        internal Result(ModelStateDictionary ModelState) : base(ModelState)
-        {
-        }
- 
+        //internal Result(SerializableError ModelErrors) : base(ModelErrors)
+        //{
+        //}
+
+        //internal Result(ModelStateDictionary ModelState) : base(ModelState)
+        //{
+        //}
 
         /// <summary>
         /// For set, Additional Data that sends to the client.

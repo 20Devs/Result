@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 
-namespace TwentyDevs.Result
+namespace TwentyDevs.ResultCore
 {
     /// <summary>
     /// Defines a result to forming the response, output of methods,
@@ -51,31 +50,7 @@ namespace TwentyDevs.Result
             else if (!string.IsNullOrWhiteSpace(message))
                 AddError("", message);
         }
- 
-        protected Result(SerializableError ModelErrors) : this()
-        {
-            foreach (var Model in ModelErrors)
-            {
-                if (Model.Value is string[] errors)
-                {
-                    foreach (var error in errors)
-                    {
-                        AddError(Model.Key, error);
-                    }
-                }
-                else
-                {
-                    AddError(Model.Key, Model.Value?.ToString());
-                }
 
-            }
-        }
-
-        protected Result(ModelStateDictionary ModelState) : this(new SerializableError(ModelState))
-        {
-
-        }
- 
         /// <summary>
         /// Adds a string as an error description to the list of errors.
         /// </summary>

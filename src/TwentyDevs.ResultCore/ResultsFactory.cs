@@ -1,8 +1,8 @@
-﻿ 
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc;
- 
-namespace TwentyDevs.Result
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TwentyDevs.ResultCore
 {
 
     public partial class Result
@@ -30,32 +30,6 @@ namespace TwentyDevs.Result
             return r;
         }
 
-        /// <summary>
-        /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
-        /// add all errors of ModelErrors to errors.
-        ///<para>This factory method is useful for converting model validation to Result objects in Middleware, Filters, or Attributes.</para>
-        /// </summary>
-        /// <param name="ModelErrors"> A dictionary of errors. In fact, SerializableError inherits from Dictionary<string, object>  </param>
- 
-        public static Result Fail(SerializableError ModelErrors)
-        {
-            return new Result(ModelErrors);
-        }
- 
-
-        /// <summary>
-        /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
-        /// add all errors of ModelState to errors.
-        /// <para>This factory method is useful for converting model validation to Result objects in Middleware, Filters, or Attributes.</para>
-        /// </summary>
-        /// <param name="ModelState"> Validation Result to Add into errors</param>
- 
-
-        public static Result Fail(ModelStateDictionary ModelState)
-        {
-            return new Result(ModelState);
-        }
- 
         /// <summary>
         /// Instantiate a new Result as a success result that IsSuccess property equals true
         /// </summary> 
@@ -98,27 +72,11 @@ namespace TwentyDevs.Result
         /// </summary>
         /// <typeparam name="T">Type of Data that returns with result as Data field</typeparam>
         /// <param name="ModelState"> Validation Result to Add into errors</param> 
- 
+        //public static Result<T> Fail<T>(ModelStateDictionary ModelState)
+        //{
+        //    return new Result<T>(ModelState);
+        //}
 
-        public static Result<T> Fail<T>(ModelStateDictionary ModelState)
-        {
-            return new Result<T>(ModelState);
-        }
- 
-        /// <summary>
-        /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
-        /// add all errors of ModelErrors to errors.
-        /// return more info by AddValue Method as Data filed.
-        ///<para>This factory method is useful for converting model validation to Result objects in Middleware, Filters, or Attributes.</para>
-        /// </summary>
-        /// <typeparam name="T">Type of Data that returns with result as Data field</typeparam>
-        /// <param name="ModelErrors"> A dictionary of errors. In fact, SerializableError inherits from Dictionary<string, object>  </param>
- 
-        public static Result<T> Fail<T>(SerializableError ModelErrors)
-        {
-            return new Result<T>(ModelErrors);
-        }
- 
         /// <summary>
         /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
         /// add ErrorMessage to the list of Errors and group it by an empty string.
