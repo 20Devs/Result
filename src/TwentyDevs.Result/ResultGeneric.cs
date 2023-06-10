@@ -44,7 +44,11 @@ using Microsoft.AspNetCore.Mvc;
         internal Result(ModelStateDictionary ModelState) : base(ModelState)
         {
         }
- 
+        
+        internal Result(string Message) : this()
+        {
+	        this.Message = Message;
+        } 
 
         /// <summary>
         /// For set, Additional Data that sends to the client.

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using System;
+using System.Configuration;
 using Xunit;
 //using JsonSerializer = System.Text.Json.JsonSerializer;
 using System.Text.Json;
@@ -41,7 +42,18 @@ namespace Result.Test
             Assert.False(desrResult.IsSuccess);
         }
 
+        [Fact]
+        public void Test_Result_Success_030()
+        {
+	        //Arrange
+	        var result = TwentyDevs.Result.Result.Success<string>();
+	        
+	        //Act
 
+
+	        //Asset
+	        Assert.True(result.IsSuccess);
+        }
     }
 
 }

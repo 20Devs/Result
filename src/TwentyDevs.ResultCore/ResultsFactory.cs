@@ -139,5 +139,23 @@ namespace TwentyDevs.ResultCore
         {
             return new Result<T>(SuccessMessage, Data);
         }
+
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Result<T> Success<T>()
+        {
+	        return new Result<T>();
+        }
+
+
+        public static Result<T> Success<T>(string SuccessMessage)
+        {
+	        return new Result<T>(true,SuccessMessage);
+        }
     }
 }
