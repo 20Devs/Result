@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using TwentyDevs.Result;
 using TwentyDevs.Result.Filter;
+using WebApi7.Dto;
 
 namespace WebApi7.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
 	[ResultResponse] 
+	[ResultValidation]
 	[TypeFilter(typeof(ResultExceptionFilter), Arguments = new object[] { false,"for controller" })]
 	public class HomeController : ControllerBase
 	{
@@ -31,5 +33,12 @@ namespace WebApi7.Controllers
 			//return NoContent();
 			//return Unauthorized();
 		}
+
+		[HttpPost]
+		public async Task<object> Post(LoginDto form)
+		{
+
+			return Ok(null);
+		} 
 	}
 }
