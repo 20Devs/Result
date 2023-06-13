@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
-    <AssemblyVersion>1.0.46.0</AssemblyVersion>
-    <FileVersion>1.0.46.0</FileVersion>
+    <AssemblyVersion>1.0.50.0</AssemblyVersion>
+    <FileVersion>1.0.50.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

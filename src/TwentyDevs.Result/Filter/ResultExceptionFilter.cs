@@ -1,12 +1,12 @@
 ﻿
 
+using Microsoft.AspNetCore.Mvc;
+
 namespace TwentyDevs.Result.Filter
 {
  
     using System.Diagnostics;
-    using System.Text.Json;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.Extensions.Logging;
     /// <summary>
@@ -49,30 +49,29 @@ namespace TwentyDevs.Result.Filter
 
         public override async Task OnExceptionAsync(ExceptionContext context)
         {
-            if (LogException)
-                _logger.LogError(context.Exception, Message);
+	        if (LogException)
+		        _logger.LogError(context.Exception, Message);
 
-            var result = Result.Fail<object>(Message);
+	        var result = Result.Fail<object>(Message);
 
-            if (Debugger.IsAttached)
-            {
+	        if (Debugger.IsAttached)
+	        {
 
-                result.AddError(nameof(context.Exception.StackTrace), context.Exception.StackTrace);
-                result.AddError(nameof(context.Exception.HelpLink), context.Exception.HelpLink);
-                result.AddError(nameof(context.Exception.HelpLink), context.Exception.HelpLink);
-                result.AddError(nameof(context.Exception.Source), context.Exception.Source);
+		        result.AddError(nameof(context.Exception.StackTrace), context.Exception.StackTrace);
+		        result.AddError(nameof(context.Exception.HelpLink), context.Exception.HelpLink);
+		        result.AddError(nameof(context.Exception.HelpLink), context.Exception.HelpLink);
+		        result.AddError(nameof(context.Exception.Source), context.Exception.Source);
 
-                if (context.Exception.InnerException!=null)
-                    result.AddError(nameof(context.Exception.InnerException), context.Exception.InnerException.Message);
-            }
+		        if (context.Exception.InnerException!=null)
+			        result.AddError(nameof(context.Exception.InnerException), context.Exception.InnerException.Message);
+	        }
 
-            result.AddError(nameof(context.Exception), context.Exception.Message);
-            result.SetValue(context.Exception.Data);
+	        result.AddError(nameof(context.Exception), context.Exception.Message);
+	        result.SetValue(context.Exception.Data);
 
-            context.HttpContext.Response.ContentType = "application/json";
-            var json = JsonSerializer.Serialize(result);
 
-            await context.HttpContext.Response.WriteAsync(json).ConfigureAwait(false);
+	        context.HttpContext.Response.ContentType = "application/json";
+	        context.Result = new ObjectResult(result);
         }
     } 
 }

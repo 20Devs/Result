@@ -116,12 +116,7 @@ namespace TwentyDevs.Result
                 {
                     AddError(Model.Key, Model.Value?.ToString());
                 }
-
             }
-
         }
-
-
-
     }
 }
