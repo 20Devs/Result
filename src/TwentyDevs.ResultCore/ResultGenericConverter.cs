@@ -21,7 +21,7 @@ namespace TwentyDevs.ResultCore
         {
 
             Result<T> result;
-            var resultType       = typeof(Result);
+            var resultType       = typeof(Result<T>);
             var resultProperties = resultType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             string name = null;
 
