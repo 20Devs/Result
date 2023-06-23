@@ -23,7 +23,12 @@ namespace TwentyDevs.ResultCore
             Result result;
             var resultType       = typeof(Result);
             var resultProperties = resultType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            var name             = reader.GetString();
+            string name = null;
+
+            using (var jsonDoc = JsonDocument.ParseValue(ref reader))
+            {
+	            name = jsonDoc.RootElement.GetRawText();
+            }
 
             var source = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(name);
 

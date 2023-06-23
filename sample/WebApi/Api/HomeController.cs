@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,23 @@ namespace WebApi.Api
         [HttpGet]
         public async Task<object>  Get()
         {
-            throw new Exception("Sample error");
+            //throw new Exception("Sample error");
+
+            var result2 = TwentyDevs.Result.Result.Success<object>(Data:"Data");
+            var strJson = JsonSerializer.Serialize(result2);
+
+
+            //Act
+            var desrResult = JsonSerializer.Deserialize<TwentyDevs.Result.Result<object>>(strJson);
 
             var result = Result.Fail("خطا رخ داده بوده ");
-            result.AddError("name","the first error.");
+            result.AddError("name", "the first error.");
             result.AddError("name", "the first error2.");
             result.AddError("name", "the first error3.");
 
-            return new { Hi = "خطا رخ داده بوده ", Ho = "خطا رخ داده بوده " };
+            return result;
+
+            //return new { Hi = "خطا رخ داده بوده ", Ho = "خطا رخ داده بوده " };
             //return Ok(new {Hi= "خطا رخ داده بوده ",Ho= "خطا رخ داده بوده "});
             //return BadRequest();
             //return NotFound();
@@ -33,6 +43,9 @@ namespace WebApi.Api
             //return Content("String as Content");
             //return NoContent();
             //return Unauthorized();
+
+
+
         }
 
         [HttpPost]

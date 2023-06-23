@@ -54,6 +54,21 @@ namespace Result.Test
 	        //Asset
 	        Assert.True(result.IsSuccess);
         }
+
+        [Fact]
+        public void Test_Result_Success_040()
+        {
+	        //Arrange
+	        var result = TwentyDevs.Result.Result.Success<int>(32);
+	        var strJson = JsonSerializer.Serialize(result);
+
+
+	        //Act
+	        var desrResult = JsonSerializer.Deserialize<TwentyDevs.Result.Result<int>>(strJson);
+
+	        //Asset
+	        Assert.True(desrResult.IsSuccess);
+        }
     }
 
 }

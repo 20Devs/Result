@@ -1,4 +1,6 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace TwentyDevs.ResultCore
 {
     /// <summary>
@@ -6,7 +8,8 @@ namespace TwentyDevs.ResultCore
     /// and returns of the actions to equalization.
     /// The Generic of this class returns additional data with T kind.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T"></typeparam> 
+    [ResultGenericJsonConverter]
     public partial class Result<T> : Result
     {
         /// <summary>
@@ -32,14 +35,6 @@ namespace TwentyDevs.ResultCore
         {
             this.Message = Message;
         }
-
-        //internal Result(SerializableError ModelErrors) : base(ModelErrors)
-        //{
-        //}
-
-        //internal Result(ModelStateDictionary ModelState) : base(ModelState)
-        //{
-        //}
 
         /// <summary>
         /// For set, Additional Data that sends to the client.

@@ -5,14 +5,14 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Text.Json; 
  
-namespace TwentyDevs.Result
+namespace TwentyDevs.ResultCore
 {
     /// <summary>
     /// Convert to/from json string  with custome converter 
     /// </summary>
-    public class ResultConverter : JsonConverter<Result>
+    public class ResultGenericConverter<T> : JsonConverter<Result<T>>
     {
-        public override Result Read
+        public override Result<T> Read
             (
                 ref Utf8JsonReader reader, 
                 Type typeToConvert, 
@@ -20,10 +20,9 @@ namespace TwentyDevs.Result
             )
         {
 
-            Result result;
+            Result<T> result;
             var resultType       = typeof(Result);
             var resultProperties = resultType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            //var name             = reader.GetString();
             string name = null;
 
             using (var jsonDoc = JsonDocument.ParseValue(ref reader))
@@ -40,14 +39,21 @@ namespace TwentyDevs.Result
 
             if (source.ContainsKey(nameof(Result.IsSuccess)))
             {
-                var successValue = source[nameof(Result.IsSuccess)].GetBoolean();
-                result           = successValue 
-                                    ? Result.Success(message) 
-                                    : Result.Fail(message);
+	            var successValue = source[nameof(Result.IsSuccess)].GetBoolean();
+
+	            if (successValue)
+	            {
+		            result = Result.Success<T>();
+		            result.Message = message;
+	            }
+	            else
+	            {
+		            result = Result.Fail<T>(message);
+	            }
             }
             else
             {
-                result = Result.Success();
+	            result = Result.Success<T>();
             }
 
             foreach (var s in source.Keys)
@@ -89,9 +95,9 @@ namespace TwentyDevs.Result
             return result;
         }
 
+       
 
-
-        public override void Write(Utf8JsonWriter writer, Result value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, Result<T> value, JsonSerializerOptions options)
         {
             var props = value.GetType()
                 .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)

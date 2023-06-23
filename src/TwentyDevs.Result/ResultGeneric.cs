@@ -1,5 +1,7 @@
 ﻿
 
+using System.Text.Json.Serialization;
+
 namespace TwentyDevs.Result
 {
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -11,13 +13,14 @@ using Microsoft.AspNetCore.Mvc;
     /// The Generic of this class returns additional data with T kind.
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [ResultGenericJsonConverter]
     public partial class Result<T> : Result
     {
         /// <summary>
         /// Additional Data to send with the result to the client
         /// </summary>
         public T Data { get; private set; }
-
+        
         internal Result() : base()
         { 
         }
@@ -45,11 +48,6 @@ using Microsoft.AspNetCore.Mvc;
         {
         }
         
-        internal Result(string Message) : this()
-        {
-	        this.Message = Message;
-        } 
-
         /// <summary>
         /// For set, Additional Data that sends to the client.
         /// </summary>

@@ -191,11 +191,6 @@ namespace TwentyDevs.Result
         {
 	        return new Result<T>();
         }
-
-
-        public static Result<T> Success<T>(string SuccessMessage)
-        {
-	        return new Result<T>(true,SuccessMessage);
-        }
+         
     }
 }

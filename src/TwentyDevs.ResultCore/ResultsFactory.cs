@@ -66,19 +66,6 @@ namespace TwentyDevs.ResultCore
 
         /// <summary>
         /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
-        /// add all errors of ModelState to errors.
-        /// return more info by AddValue Method as Data filed.
-        /// <para>This factory method is useful for converting model validation to Result objects in Middleware, Filters, or Attributes.</para>
-        /// </summary>
-        /// <typeparam name="T">Type of Data that returns with result as Data field</typeparam>
-        /// <param name="ModelState"> Validation Result to Add into errors</param> 
-        //public static Result<T> Fail<T>(ModelStateDictionary ModelState)
-        //{
-        //    return new Result<T>(ModelState);
-        //}
-
-        /// <summary>
-        /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
         /// add ErrorMessage to the list of Errors and group it by an empty string.
         /// return more info by AddValue Method as Data filed.
         /// </summary>
@@ -139,8 +126,6 @@ namespace TwentyDevs.ResultCore
         {
             return new Result<T>(SuccessMessage, Data);
         }
-
-
         
         /// <summary>
         /// 
@@ -152,10 +137,6 @@ namespace TwentyDevs.ResultCore
 	        return new Result<T>();
         }
 
-
-        public static Result<T> Success<T>(string SuccessMessage)
-        {
-	        return new Result<T>(true,SuccessMessage);
-        }
+         
     }
 }
