@@ -12,7 +12,12 @@ namespace TwentyDevs.Result.Filter
     /// </summary>
     public class ResultValidationAttribute : ActionFilterAttribute
     {
-        
+	    private readonly int _statusCodesResult;
+
+	    public ResultValidationAttribute(int StatusCodesResult = StatusCodes.Status400BadRequest )
+	    {
+		    _statusCodesResult = StatusCodesResult;
+	    }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)
@@ -23,9 +28,9 @@ namespace TwentyDevs.Result.Filter
 
                 context.Result  = new ResultResponse()
                 {
-                    Content = strJson, 
+                    Content     = strJson, 
                     ContentType = "application/json",
-                    StatusCode = StatusCodes.Status400BadRequest
+                    StatusCode  = _statusCodesResult
                 };
             }
         }
