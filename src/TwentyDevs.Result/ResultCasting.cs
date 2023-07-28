@@ -8,12 +8,9 @@
 //////////////////////////////////////////////////////////////////////////////////////
 namespace TwentyDevs.Result
 {
- 
-
     using Microsoft.AspNetCore.Mvc;
     public partial class Result
     {
-        
         public static implicit operator Result(OkResult result)
         {
             return Result.Success();

@@ -30,7 +30,7 @@ namespace TwentyDevs.ResultCore
 	            name = jsonDoc.RootElement.GetRawText();
             }
 
-            var source = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(name);
+            var source = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(name,options);
 
             var message =
                 source.ContainsKey(nameof(Result.Message))
@@ -66,11 +66,11 @@ namespace TwentyDevs.ResultCore
                     continue;
                 }
                 
-                var propertyInfo = resultProperties.FirstOrDefault(x => x.Name == s);
+                var propertyInfo = resultProperties.FirstOrDefault(x => string.Compare(x.Name,s,StringComparison.OrdinalIgnoreCase) ==0);
 
                 if (propertyInfo != null)
                 {
-                    var value = JsonSerializer.Deserialize(source[s].GetRawText(), propertyInfo.PropertyType);
+                    var value = JsonSerializer.Deserialize(source[s].GetRawText(), propertyInfo.PropertyType,options);
 
                     if (string.Compare(s, nameof(Result.Errors), StringComparison.OrdinalIgnoreCase) == 0)
                     {

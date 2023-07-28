@@ -80,5 +80,25 @@ namespace ResultCore.Test
 			//Asset
 			Assert.True(desrResult.IsSuccess);
 		}
+
+        [Fact]
+        public void Test_Result_Success_060()
+        {
+            //Arrange
+            var user = new UserDto() { Name = "Soran", Age = 20 };
+            var result = TwentyDevs.ResultCore.Result.Success<UserDto>(user);
+            var option = new JsonSerializerOptions()
+                { PropertyNameCaseInsensitive = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var strJson = JsonSerializer.Serialize(result,option);
+
+
+            //Act
+            var desrResult = JsonSerializer.Deserialize<TwentyDevs.ResultCore.Result<UserDto>>(strJson,option);
+
+            //Asset
+            Assert.True(desrResult.IsSuccess);
+			Assert.Equal(desrResult.Data.Name,user.Name);
+			Assert.Equal(desrResult.Data.Age,user.Age);
+        }
 	}
 }
