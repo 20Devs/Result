@@ -100,5 +100,27 @@ namespace ResultCore.Test
 			Assert.Equal(desrResult.Data.Name,user.Name);
 			Assert.Equal(desrResult.Data.Age,user.Age);
         }
+
+		[Fact]
+        public void Test_Result_Success_070()
+        {
+            //Arrange
+            var result = TwentyDevs.ResultCore.Result.Fail("Error");
+			result.AddError("Name","Wrong name");
+			result.AddError("Name","Wrong name2");
+			result.AddError("Family","Wrong family");
+
+            var option = new JsonSerializerOptions()
+                { PropertyNameCaseInsensitive = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var strJson = JsonSerializer.Serialize(result,option);
+
+
+            //Act
+            var desrResult = JsonSerializer.Deserialize<TwentyDevs.ResultCore.Result<UserDto>>(strJson,option);
+
+            //Asset
+            Assert.False(desrResult.IsSuccess);
+			Assert.Equal(desrResult.Errors.Count,result.Errors.Count);
+        }
 	}
 }

@@ -1,19 +1,20 @@
 ﻿
 
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace TwentyDevs.Result
 {
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
- 
-    /// <summary>
-    /// Defines a result to forming the response, output of methods,
-    /// and returns of the actions to equalization.
-    /// The Generic of this class returns additional data with T kind.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    [ResultGenericJsonConverter]
+
+	/// <summary>
+	/// Defines a result to forming the response, output of methods,
+	/// and returns of the actions to equalization.
+	/// The Generic of this class returns additional data with T kind.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	[ResultGenericJsonConverter]
     public partial class Result<T> : Result
     {
         /// <summary>
@@ -48,6 +49,12 @@ using Microsoft.AspNetCore.Mvc;
         {
         }
         
+        internal Result(Dictionary<string, List<string>> ErrorDictionary) : base()
+        {
+            _errors = ErrorDictionary;
+        }
+
+
         /// <summary>
         /// For set, Additional Data that sends to the client.
         /// </summary>

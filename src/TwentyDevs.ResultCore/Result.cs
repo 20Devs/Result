@@ -26,7 +26,7 @@ namespace TwentyDevs.ResultCore
         /// <summary>
         /// Determines the result of operation or response(Success/Faild).
         /// </summary>
-        public bool     IsSuccess       => !_errors.Any();
+        public bool      IsSuccess       => !_errors.Any();
 
         /// <summary>
         /// A simple dictionary that return list of errors as string.
@@ -49,6 +49,11 @@ namespace TwentyDevs.ResultCore
                 this.Message = message;
             else if (!string.IsNullOrWhiteSpace(message))
                 AddError("", message);
+        }
+
+        protected Result(Dictionary<string, List<string>> ErrorDictionary) : this()
+        {
+	        _errors = ErrorDictionary;
         }
 
         /// <summary>
@@ -91,9 +96,7 @@ namespace TwentyDevs.ResultCore
                 {
                     AddError(Model.Key, Model.Value?.ToString());
                 }
-
             }
-
         }
 
     }

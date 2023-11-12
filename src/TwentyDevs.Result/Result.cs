@@ -75,6 +75,11 @@ namespace TwentyDevs.Result
         {
 
         }
+
+        protected Result(Dictionary<string, List<string>> ErrorDictionary):this()
+        {
+	        _errors = ErrorDictionary;
+        }
  
         /// <summary>
         /// Adds a string as an error description to the list of errors.

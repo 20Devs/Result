@@ -31,6 +31,19 @@ namespace TwentyDevs.ResultCore
         }
 
         /// <summary>
+        /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
+        /// add ErrorMessage to the list of Errors and group it by an MetaData string.
+        /// </summary>
+        /// <param name="MetaData">To group some errors under a name</param>
+        /// <param name="ErrorMessage">A string that describes the error</param>
+        public static Result Fail(Dictionary<string, List<string>> ErrorDictionary)
+        {
+	        var r = new Result();
+	        r.AddError(ErrorDictionary);
+	        return r;
+        }
+
+        /// <summary>
         /// Instantiate a new Result as a success result that IsSuccess property equals true
         /// </summary> 
         public static Result Success()
@@ -103,6 +116,21 @@ namespace TwentyDevs.ResultCore
             r.AddError("", ErrorMessage);
             return r;
         }
+
+
+        /// <summary>
+        /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
+        /// add all errors of ModelState to errors.
+        /// <para>This factory method is useful for converting Generic form of result to simple one without any data.</para>
+        /// </summary>
+        /// <param name="ModelState"> A dictionary of errors </param>
+        public static Result<T> Fail<T>(T Data, Dictionary<string, List<string>> Errors )
+        {
+	        var r = new Result<T>(Data);
+	        r.AddError(Errors);
+	        return r;
+        }
+
 
         /// <summary>
         /// Instantiate a new Result as a success result that IsSuccess property equals true

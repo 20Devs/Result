@@ -1,7 +1,7 @@
 ﻿ 
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
- 
 namespace TwentyDevs.Result
 {
 
@@ -49,11 +49,20 @@ namespace TwentyDevs.Result
         /// <para>This factory method is useful for converting model validation to Result objects in Middleware, Filters, or Attributes.</para>
         /// </summary>
         /// <param name="ModelState"> Validation Result to Add into errors</param>
- 
-
         public static Result Fail(ModelStateDictionary ModelState)
         {
             return new Result(ModelState);
+        }
+
+        /// <summary>
+        /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
+        /// add all errors of ModelState to errors.
+        /// <para>This factory method is useful for converting Generic form of result to simple one without any data.</para>
+        /// </summary>
+        /// <param name="ModelState"> A dictionary of errors</param>
+        public static Result Fail(Dictionary<string, List<string>> Errors )
+        {
+	        return new Result(Errors);
         }
  
         /// <summary>
@@ -88,6 +97,21 @@ namespace TwentyDevs.Result
             var r = new Result<T>();
             r.AddError(MetaData, ErrorMessage);
             return r;
+        }
+
+        /// <summary>
+        /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
+        /// add ErrorMessage to the list of Errors and group it by an MetaData string.
+        /// return more info by AddValue Method as Data filed. 
+        /// </summary>
+        /// <typeparam name="T">Type of Data that returns with result as Data field</typeparam>
+        /// <param name="Errors">A dictionary of Errors to add to the instance of Result.</param>
+        /// <returns></returns>
+        public static Result<T> Fail<T>(Dictionary<string, List<string>> Errors)
+        {
+	        var r = new Result<T>();
+	        r.AddError(Errors);
+	        return r;
         }
 
         /// <summary>
@@ -158,6 +182,20 @@ namespace TwentyDevs.Result
             r.AddError("", ErrorMessage);
             return r;
         }
+
+        /// <summary>
+        /// Instantiate a new Result as a Failure result that IsSuccess property equals false and
+        /// add all errors of ModelState to errors.
+        /// <para>This factory method is useful for converting Generic form of result to simple one without any data.</para>
+        /// </summary>
+        /// <param name="ModelState"> A dictionary of errors </param>
+        public static Result<T> Fail<T>(T Data, Dictionary<string, List<string>> Errors)
+        {
+	        var r = new Result<T>(Data);
+	        r.AddError(Errors);
+	        return r;
+        }
+
 
         /// <summary>
         /// Instantiate a new Result as a success result that IsSuccess property equals true

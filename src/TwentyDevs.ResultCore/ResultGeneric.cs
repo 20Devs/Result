@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace TwentyDevs.ResultCore
@@ -34,6 +35,11 @@ namespace TwentyDevs.ResultCore
         internal Result(string Message, T Value) : this(Value)
         {
             this.Message = Message;
+        }
+
+        protected Result(Dictionary<string, List<string>> ErrorDictionary):this()
+        {
+	        _errors = ErrorDictionary;
         }
 
         /// <summary>
