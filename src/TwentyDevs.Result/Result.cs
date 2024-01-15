@@ -46,10 +46,10 @@ namespace TwentyDevs.Result
 
         protected Result(bool IsSuccess, string message) : this()
         {
-            if (IsSuccess)
-                this.Message = message;
-            else if (!string.IsNullOrWhiteSpace(message))
-                AddError("", message);
+	        this.Message = message;
+
+	        if (!IsSuccess && !string.IsNullOrWhiteSpace(message))
+		        AddError("", message);
         }
  
         protected Result(SerializableError ModelErrors) : this()

@@ -52,6 +52,7 @@ namespace TwentyDevs.Result.Filter
 	        if (LogException)
 		        _logger.LogError(context.Exception, Message);
 
+
 	        var result = Result.Fail<object>(Message);
 
 	        if (Debugger.IsAttached)

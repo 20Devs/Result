@@ -45,9 +45,9 @@ namespace TwentyDevs.ResultCore
 
         protected Result(bool IsSuccess, string message) : this()
         {
-            if (IsSuccess)
-                this.Message = message;
-            else if (!string.IsNullOrWhiteSpace(message))
+	        this.Message = message;
+
+            if (!IsSuccess && !string.IsNullOrWhiteSpace(message))
                 AddError("", message);
         }
 
