@@ -123,5 +123,18 @@ namespace TwentyDevs.Result
                 }
             }
         }
+
+        /// <summary>
+        /// Adds a collection of errors to the existing error list as a MetaData.
+        /// </summary>
+        /// <param name="Errors">A dictionary of errors for adding</param>
+        public void AddError(string MetaData, List<string> Errors)
+        {
+	        foreach (var error in Errors)
+	        {
+			    AddError(MetaData,error);
+	        }
+        }
+
     }
 }
